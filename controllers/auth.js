@@ -21,7 +21,7 @@ const login = async(req = request, res = response) => {
         }
 
         // Verificar si el usuario está activo 
-        if (!usuario.state){
+        if (!usuario.status){
             return res.status(400).json({
                 msg: 'El usuario no está activo'
             });
@@ -77,7 +77,7 @@ const googleSignIn = async( req = request, res = response ) => {
     }
 
     // Si el usuario esta en BD pero lo borraron
-    if ( !usuario.state ) {
+    if ( !usuario.status ) {
         return res.status(401).json({
             msg: 'Hable con el administrador, usuario bloqueado'
         })

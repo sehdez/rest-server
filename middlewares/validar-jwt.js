@@ -28,7 +28,7 @@ const validarJWT = async( req = request, res = response , next ) => {
         }
 
 
-        if( !usuario.state ){
+        if( !usuario.status ){
             return res.status(401).json({
                 msg: 'Token no valido - usuario desactivado'
             })
