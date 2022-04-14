@@ -1,8 +1,19 @@
 const { Router } = require('express');
 const { check }  = require('express-validator');
 
+// const { validarCampos } = require('../middlewares/validar-campos');
+// const { validarJWT } = require('../middlewares/validar-jwt');
+// const { esAdminRol, tieneRol } = require('../middlewares/validar-roles');
+
+// Esta importación sustituye a las lineas comentadas arriba - se necesita crear el index dentro de los middlewares
+const {
+    validarCampos,
+    validarJWT,
+    esAdminRol,
+    tieneRol
+}= require('../middlewares')
+
 const { esRolValido, emailExiste, usuarioExiste } = require('../helpers/db-validators');
-const { validarCampos } = require('../middlewares/validar-campos');
 
 const { usuariosGet, 
         usuariosDelete, 
@@ -38,6 +49,9 @@ const router = Router();
 
 
     router.delete('/:id', [
+        validarJWT,
+        // esAdminRol,
+        tieneRol('ADMIN_ROLE', 'USER_ROLE'),
         check('id', 'No es un ID válido').isMongoId(),
         check ('id').custom( usuarioExiste ),
         validarCampos

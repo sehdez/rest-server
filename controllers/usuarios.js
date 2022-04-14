@@ -1,8 +1,6 @@
 const { response, request } = require("express");
-const usuario = require("../models/usuario");
 const Usuario = require('../models/usuario');
 const bcrypt  = require('bcryptjs');
-const { emailExiste } = require("../helpers/db-validators");
 
 
 const usuariosGet =  async(req = request, res = response)=> {
@@ -82,13 +80,15 @@ const usuariosPatch = (req = request, res = response)=> {
 }
 
 const usuariosDelete = async(req = request, res = response)=> {
-    const { id } = req.params;
+    const { id  } = req.params;
+    const usuarioAutentificado = req.usuario;
     // Borrar fisicamente un usuario pero eso ya no es valido hacerlo
     // const usuario = await Usuario.findByIdAndDelete( id );
 
-    const usuario = await Usuario.findByIdAndUpdate( id, { state: false } )
+    const usuario = await Usuario.findByIdAndUpdate( id, { state: false } );
     res.json({
-        usuario
+        usuario,
+        usuarioAutentificado
     });
 }
 
