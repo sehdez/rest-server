@@ -16,8 +16,8 @@ const usuariosGet =  async(req = request, res = response)=> {
     // Convina los dos await que estan comentados para que se ejecuten al mismo tiempo
 
     const [ totalUsuarios, usuarios ] = await Promise.all([
-        Usuario.countDocuments({ estado:true }),
-        Usuario.find({ estado:true })
+        Usuario.countDocuments({ status:true }),
+        Usuario.find({ status:true })
             .skip( Number( desde ) )
             .limit( Number( limite ) )
     ])
@@ -57,7 +57,7 @@ const usuariosPost = async(req = request, res = response)=> {
 const usuariosPut = async(req = request, res = response)=> {
     const { id } = req.params;
     const { password, google, email, ...resto } = req.body;
-    // TODO: Validar contra la base de datos 
+    // Validar contra la base de datos 
     if ( password ){
         // Encriptar la contraseña
         const salt = bcrypt.genSaltSync();
