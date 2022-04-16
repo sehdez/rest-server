@@ -20,15 +20,14 @@ const ProductoSchema = new Schema({
     price: {
         type: Number,
         default: 0,
-        categoria: {
-            type: Schema.Types.ObjectId,
-            ref: 'Categoria',
-            required: true
-        },
-        description:{ type: String },
-        available:{ type: Boolean, default:true }
-    }
-
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Categoria',
+        required: true
+    },
+    description:{ type: String },
+    available:{ type: Boolean, default:true }
 });
 
 
